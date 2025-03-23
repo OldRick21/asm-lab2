@@ -3,6 +3,7 @@ LD = /usr/bin/ld
 
 ASFLAGS = -g -f elf64
 LDFLAGS = -static
+SORT ?= 0
 
 SRCS = src.s
 OBJS = $(SRCS:.s=.o)
@@ -18,4 +19,4 @@ $(EXE): $(OBJS)
 	$(LD) $(LDFLAGS) $(OBJS) -o $@
 
 .s.o:
-	$(AS) $(ASFLAGS) $< -o $@
+	$(AS) $(ASFLAGS) $(if $(filter 1,$(SORT)),-DSORT_DESCENDING,) $< -o $@
