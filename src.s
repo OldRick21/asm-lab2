@@ -60,7 +60,7 @@ colloop_even:
     mov r12b, byte [cols] 
     sub r12b, 1
     cmp r9b, r12b
-    jae rowloop
+    jae flag_chech
 
     movzx rax, r8b           ; Загружаем индекс строки в RAX
     movsx rdi, byte [cols]     
@@ -83,6 +83,14 @@ colloop_even:
 
     jmp cmp
 
+flag_chech:
+    cmp r13, 0
+    je rowloop
+    mov r13, 0
+    mov r9b, 0
+    jmp colloop_odd
+
+
 cmp:
     %ifdef SORT_DESCENDING
 
@@ -98,10 +106,12 @@ cmp:
     jle not_swap;меньше или равен
 
 swap:
-    mov r9b, 0
     mov word [matrix + rax + rbx + 2], si
     mov word [matrix + rax + rbx], cx
-    jmp colloop_odd
+    cmp r14, 1 ;флаг отвечающий за фазу чет\нечет
+    mov r13, 1
+    je colloop_odd
+    jmp colloop_even
 
 
 not_swap:
@@ -109,17 +119,6 @@ not_swap:
     je colloop_odd
     jmp colloop_even
 
-
-
-
-over_flow:
-    mov	eax, 60
-    mov	edi, 1
-    syscall
-err:
-    mov	eax, 60
-    mov	edi, 2
-    syscall
 _end:
     mov eax, 60
 	mov	edi, 0
