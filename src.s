@@ -28,7 +28,7 @@ colloop_odd:
     jae pre_colloop_even
 
     movzx rax, r8b           ; Загружаем индекс строки в RAX
-    movsx rdi, byte [cols]     
+    movzx rdi, byte [cols]     
     imul rax, rdi
     imul rax, 2               ; Умножаем на размер строки (10 байт)
     movzx rbx, r9b           ; Загружаем индекс столбца в RBX
@@ -37,7 +37,7 @@ colloop_odd:
 
 ;
     movzx rax, r8b           
-    movsx rdi, byte [cols]     
+    movzx rdi, byte [cols]     
     imul rax, rdi
     imul rax, 2             
     movzx rbx, r9b          
@@ -63,7 +63,7 @@ colloop_even:
     jae flag_chech
 
     movzx rax, r8b           ; Загружаем индекс строки в RAX
-    movsx rdi, byte [cols]     
+    movzx rdi, byte [cols]     
     imul rax, rdi
     imul rax, 2               ; Умножаем на размер строки (10 байт)
     movzx rbx, r9b           ; Загружаем индекс столбца в RBX
@@ -72,7 +72,7 @@ colloop_even:
 
 ;
     movzx rax, r8b      
-    movsx rdi, byte [cols]     
+    movzx rdi, byte [cols]     
     imul rax, rdi
     imul rax, 2              
     movzx rbx, r9b          
